@@ -81,7 +81,6 @@ export default function Home() {
       <Container>
         <Box width='100%' mb={5}>
           <Typography variant='h1' textAlign='center'>Rate My Professor Chatbot</Typography>
-          <Typography variant='subtitle1' textAlign='center'>Created by Esat Adiloglu, Nathaniel Escaro, Ryan Eshan, Saikarthik Mummadisingu</Typography>
         </Box>
         <Stack direction={'column'} height="700px" border="1px solid black" p={2} spacing={3} justifyContent='center' alignContent='stretch'>
           <ChatWindow width='100%' height='100%'>
