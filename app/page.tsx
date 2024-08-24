@@ -60,10 +60,7 @@ export default function Home() {
 
     (async () => {
       try {
-        console.log('Sending message:', msg);
         const res = await fetchResponse(msg);
-
-        console.log('Responded with:', res);
         setHistory([
           ...future,
           { role: 'model', content: res }
