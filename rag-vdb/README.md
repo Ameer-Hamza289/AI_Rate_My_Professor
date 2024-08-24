@@ -23,6 +23,3 @@ Do `pip install python-dotenv pinecone-client google-generativeai`.
 # Run setup.py
 Run your virtual environment using Powershell and executing the script inside `./venv/Scripts/activate`.
 Afterwards, type `python setup.py`. Once the process terminates, type `exit` to leave the virtual environment.
-
-# References
-https://medium.com/@billzhangsc/building-a-rag-powered-ai-assistant-the-rate-my-professor-project-19b8a999313a
