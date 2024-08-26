@@ -12,14 +12,14 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 npm install @mui/material @emotion/react @emotion/styled @pinecone-database/pinecone @vercel/analytics openai
 ## Setting up Pinecone:
 
-— Go to the Pinecone website and create an account if you haven’t already.
-— Create a new project and note down your API key and environment.
-— We’ll use these in the next step.
+Go to the Pinecone website and create an account if you haven’t already.
+Create a new project and note down your API key and environment.
+We’ll use these in the next step.
 
 ## Setting up OpenAI:
-— Go to the OpenAI website and sign up for an account if you haven’t already.
-— Navigate to the API section and create a new API key.
-— We’ll use this API key in the next step.
+ Go to the OpenAI website and sign up for an account if you haven’t already.
+ Navigate to the API section and create a new API key.
+ We’ll use this API key in the next step.
 
 you can also use the gemini api key 
 
