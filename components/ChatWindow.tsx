@@ -23,7 +23,16 @@ export default function ChatWindow({
     }, [children, ref])
 
     return (
-        <Box width={width} height={height} overflow='auto'>
+        <Box 
+            width={width} 
+            height={height} 
+            overflow='auto'
+            borderRadius={8}
+            border="1px solid #ddd"
+            boxShadow="0 4px 8px rgba(0, 0, 0, 0.1)"
+            p={2}
+            bgcolor="#f9f9f9"
+        >
             <Stack direction='column' spacing={2} minHeight='100%'>
                 { children }
                 <span ref={ref}></span>
