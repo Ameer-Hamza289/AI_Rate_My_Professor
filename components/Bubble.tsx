@@ -20,8 +20,8 @@ export default function Bubble({
             <Box 
                 color={color || '#333'} 
                 bgcolor={bgcolor}
-                borderRadius={20}
-                p={2}
+                borderRadius={10}
+                p={4}
                 maxWidth='80%'
                 boxShadow="0 2px 4px rgba(0, 0, 0, 0.1)"
                 sx={{
