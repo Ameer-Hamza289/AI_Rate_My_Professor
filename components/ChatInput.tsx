@@ -2,9 +2,9 @@
 
 import Stack from '@mui/material/Stack';
 import TextField from '@mui/material/TextField';
-import IconButton from '@mui/material/IconButton';
-import SendIcon from '@mui/icons-material/Send';
+// import SendIcon from '@mui/icons-material/Send';
 import { useState } from 'react';
+import { Button } from '@mui/material';
 
 export type ChatInputOptions = {
     onSubmit: ((msg: string) => void) | ((msg: string) => Promise<void>)
@@ -74,7 +74,7 @@ export default function ChatInput({
                     },
                 }}
             />
-            <IconButton 
+            {/* <IconButton 
                 color="primary" 
                 onClick={handleSubmit} 
                 disabled={debounce || !message.trim()}
@@ -94,7 +94,8 @@ export default function ChatInput({
                 }}
             >
                 <SendIcon />
-            </IconButton>
+            </IconButton> */}
+        <Button variant="contained" sx={{ borderRadius: 10 }} onClick={handleSubmit} disabled={debounce || false}>Send</Button>
         </Stack>
     );
 }
