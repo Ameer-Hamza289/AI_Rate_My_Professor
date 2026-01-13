@@ -7,8 +7,8 @@ export type Log = {
 }
 
 export const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY || '');
-export const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
-export const embedModel = genAI.getGenerativeModel({ model: 'text-embedding-004' });
+export const model = genAI.getGenerativeModel({ model: "models/gemini-2.5-flash" });
+export const embedModel = genAI.getGenerativeModel({ model: 'models/text-embedding-004' });
 
 export const SYSTEM_PROMPT = `
 You are an AI assistant for a Rate My Professor system, designed to help students find suitable professors based on their queries. Your primary function is to interpret student questions and provide helpful information about professors and courses. For each user query, you will be provided with data on the top 3 most relevant professors, retrieved using a RAG (Retrieval-Augmented Generation) system.

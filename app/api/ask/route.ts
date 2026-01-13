@@ -8,14 +8,15 @@ import { createEmbedding, getResponseStream, SYSTEM_PROMPT } from '@/lib/ai';
 import { queryRAG, formatQueryResults } from '@/lib/rag';
 
 export async function POST(req: NextRequest) {
-    const dat = (await req.json()) as RequestBody;
-    if(!verifyBody(dat)) {
-        return new NextResponse('Missing data or data fields in request.', { status: 400 });
-    }
+    try {
+        const dat = (await req.json()) as RequestBody;
+        if(!verifyBody(dat)) {
+            return new NextResponse('Missing data or data fields in request.', { status: 400 });
+        }
 
-    const embeds = await createEmbedding(dat.incoming);
-    const q = await queryRAG(embeds);
-    const res = formatQueryResults(q);
+        const embeds = await createEmbedding(dat.incoming);
+        const q = await queryRAG(embeds);
+        const res = formatQueryResults(q);
 
     const prompt = dat.incoming + res;
     const logs: Log[] = dat.history
@@ -53,5 +54,37 @@ export async function POST(req: NextRequest) {
         }
     })
 
-    return new NextResponse(stream);
+        return new NextResponse(stream);
+    } catch (error: any) {
+        console.error('API route error:', error);
+
+        // Return user-friendly error messages
+        if (error.message?.includes('Network connection issue') || error.message?.includes('EAI_AGAIN')) {
+            return new NextResponse(
+                JSON.stringify({
+                    error: 'Network connection issue. Please check your internet connection and try again.',
+                    details: error.message
+                }),
+                { status: 503, headers: { 'Content-Type': 'application/json' } }
+            );
+        }
+
+        if (error.message?.includes('authentication failed')) {
+            return new NextResponse(
+                JSON.stringify({
+                    error: 'Pinecone authentication failed. Please check your API key configuration.',
+                    details: error.message
+                }),
+                { status: 401, headers: { 'Content-Type': 'application/json' } }
+            );
+        }
+
+        return new NextResponse(
+            JSON.stringify({
+                error: 'An error occurred while processing your request.',
+                details: error.message
+            }),
+            { status: 500, headers: { 'Content-Type': 'application/json' } }
+        );
+    }
 }

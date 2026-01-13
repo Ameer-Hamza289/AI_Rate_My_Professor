@@ -9,18 +9,39 @@ export type RAGMetadata = {
     stars: number
 }
 
+const apiKey = process.env.PINECONE_API_KEY || '';
+
+if (!apiKey) {
+    console.error('PINECONE_API_KEY is not set in environment variables');
+}
+
 export const pc = new Pinecone({
-    apiKey: process.env.PINECONE_API_KEY || ''
+    apiKey: apiKey
 });
 
 const index = pc.index('rag').namespace('ns1');
 
 export async function queryRAG(embeding: Embedding[], k?: number) {
-    return index.query({
-        topK: k || 5,
-        includeMetadata: true,
-        vector: embeding
-    });
+    try {
+        return await index.query({
+            topK: k || 5,
+            includeMetadata: true,
+            vector: embeding
+        });
+    } catch (error: any) {
+        console.error('Pinecone query error:', error);
+
+        // Provide more helpful error messages
+        if (error.message?.includes('EAI_AGAIN') || error.message?.includes('getaddrinfo')) {
+            throw new Error('Network connection issue: Cannot resolve Pinecone API hostname. Please check your internet connection and DNS settings.');
+        }
+
+        if (error.message?.includes('401') || error.message?.includes('Unauthorized')) {
+            throw new Error('Pinecone authentication failed: Please check your PINECONE_API_KEY.');
+        }
+
+        throw error;
+    }
 }
 
 export function formatQueryResults(q: QueryResponse<RecordMetadata>) {
